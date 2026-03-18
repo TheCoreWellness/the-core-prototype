@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipment — The Core</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: #2D3B2D;
+  background: #FFFFFF;
+  line-height: 1.7;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; font-family: inherit; }
+
+/* ========== CSS VARIABLES ========== */
+:root {
+  --sage: #93A99E;
+  --light-sage: #A8BDB3;
+  --dark-sage: #7A9189;
+  --mist: #EDF3F0;
+  --forest: #2D3B2D;
+  --grey: #E0E0E0;
+  --light-grey: #EBEBEB;
+  --white: #FFFFFF;
+  --off-white: #FAFAF8;
+  --pale-white: #F5F5F3;
+  --text-primary: #2D3B2D;
+  --text-secondary: #5A5A5A;
+  --text-muted: #888888;
+  --max-width: 1200px;
+  --heading-font: 'Bodoni Moda', serif;
+  --accent-font: 'Cormorant Garamond', serif;
+  --body-font: 'DM Sans', sans-serif;
+}
+
+/* ========== TYPOGRAPHY ========== */
+h1, h2, h3, h4 { font-family: var(--heading-font); font-weight: 500; line-height: 1.25; }
+.section-label {
+  font-family: var(--body-font);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--sage);
+  margin-bottom: 16px;
+}
+
+/* ========== BUTTONS ========== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sage);
+  color: white;
+  font-family: var(--body-font);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px 40px;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover { background: var(--dark-sage); transform: scale(1.02); }
+
+/* ========== NAVIGATION ========== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0 48px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--light-grey);
+  transition: all 0.3s ease;
+}
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.navbar-logo img {
+  height: 30px;
+  width: auto;
+}
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.navbar-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--forest);
+  transition: color 0.2s;
+  position: relative;
+}
+.navbar-links a:hover, .navbar-links a.active { color: var(--sage); }
+.navbar-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--sage);
+}
+.nav-cta {
+  background: var(--sage);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 32px;
+  border-radius: 999px;
+  transition: background 0.3s;
+}
+.nav-cta:hover { background: var(--dark-sage); }
+
+/* ========== EQUIPMENT HERO ========== */
+.equipment-hero {
+  padding: 140px 48px 80px;
+  background: var(--white);
+  text-align: center;
+}
+.equipment-hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.equipment-hero h1 {
+  font-family: var(--heading-font);
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--forest);
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+.equipment-hero p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ========== PRODUCT GRID ========== */
+.equipment-section {
+  padding: 80px 48px;
+  background: var(--white);
+}
+.equipment-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.product-card {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--light-grey);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: all 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border-color: var(--sage);
+}
+.product-thumbnail {
+  width: 100%;
+  height: 260px;
+  background: var(--mist);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+}
+.product-thumbnail svg {
+  width: 100%;
+  height: 100%;
+  max-width: 220px;
+  max-height: 220px;
+}
+.product-content {
+  padding: 28px 24px;
+}
+.product-name {
+  font-family: var(--heading-font);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--forest);
+  margin-bottom: 12px;
+}
+.product-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.product-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--sage);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s;
+}
+.product-card:hover .product-link {
+  gap: 10px;
+  text-decoration: underline;
+}
+
+/* ========== CTA SECTION ========== */
+.equipment-cta {
+  padding: 100px 48px;
+  background: var(--mist);
+  text-align: center;
+}
+.equipment-cta-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.equipment-cta h2 {
+  font-family: var(--heading-font);
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--forest);
+  margin-bottom: 16px;
+}
+.equipment-cta p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+/* ========== SECTION I: FOOTER ========== */
+footer{background:var(--forest);padding:60px 48px 44px;text-align:center}
+footer .flogo img{height:26px;filter:brightness(0) invert(1);margin:0 auto 10px}
+footer .ftag{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:24px}
+footer .flinks{display:flex;justify-content:center;gap:22px;margin-bottom:28px}
+footer .flinks a{font-size:12px;color:rgba(255,255,255,.5);transition:color .2s}
+footer .flinks a:hover{color:#fff}
+footer hr{width:100%;max-width:700px;margin:0 auto 28px;border:none;border-top:1px solid rgba(255,255,255,.12)}
+footer .fcopy{font-size:11px;color:rgba(255,255,255,.4)}
+footer .newsletter{margin-bottom:32px}
+footer .newsletter p{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:12px}
+footer .nl-form{display:flex;gap:0;max-width:400px;margin:0 auto}
+footer .nl-form input{flex:1;padding:11px 16px;border:1px solid rgba(255,255,255,.2);border-right:none;border-radius:999px 0 0 999px;background:rgba(255,255,255,.08);color:#fff;font-family:var(--body);font-size:13px;outline:none}
+footer .nl-form input::placeholder{color:rgba(255,255,255,.35)}
+footer .nl-form input:focus{border-color:var(--sage);background:rgba(255,255,255,.12)}
+footer .nl-form button{padding:11px 24px;background:var(--sage);color:#fff;font-family:var(--body);font-size:12px;font-weight:500;border-radius:0 999px 999px 0;border:1px solid var(--sage);transition:background .3s;text-transform:uppercase;letter-spacing:.06em}
+footer .nl-form button:hover{background:#7A9189}
+
+/* ========== MODAL ========== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(45,59,45,0.5);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 36px;
+  max-width: 520px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  position: relative;
+  animation: modalIn 0.3s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 24px;
+  color: var(--text-muted);
+  background: none;
+  transition: color 0.2s;
+  line-height: 1;
+}
+.modal-close:hover { color: var(--forest); }
+
+/* ========== FORM ========== */
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--forest);
+  margin-bottom: 6px;
+}
+.form-group label .required { color: #C0392B; margin-left: 2px; }
+.form-input {
+  width: 100%;
+  border: 1px solid var(--light-grey);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: var(--body-font);
+  font-size: 15px;
+  color: var(--forest);
+  background: var(--white);
+  transition: all 0.2s;
+  outline: none;
+}
+.form-input:focus {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(147,169,158,0.15);
+}
+.form-input::placeholder { color: var(--text-muted); }
+.btn-submit {
+  width: 100%;
+  background: var(--sage);
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 16px;
+  border-radius: 999px;
+  margin-top: 28px;
+  transition: background 0.3s;
+}
+.btn-submit:hover { background: var(--dark-sage); }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-logo"><img src="images/the-core-logo.png" alt="The Core"></a>
+  <div class="navbar-links">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="equipment.html" class="active">Equipment</a>
+    <a href="our-story.html">Founder's Story</a>
+    <a href="javascript:void(0)" class="nav-cta" onclick="openModal()">Start Here</a>
+  </div>
+</nav>
+
+<!-- ==================== EQUIPMENT HERO ==================== -->
+<section class="equipment-hero">
+  <div class="equipment-hero-inner">
+    <div class="section-label">EQUIPMENT</div>
+    <h1>Everything you need. Nothing you don't.</h1>
+    <p>We've selected the essentials for your Core practice — from mats and weights to Pilates rings and resistance bands. Simple, intentional, and available on Amazon India.</p>
+  </div>
+</section>
+
+<!-- ==================== PRODUCT GRID ==================== -->
+<section class="equipment-section">
+  <div class="equipment-inner">
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-thumbnail">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="matGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#A8BDB3;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#93A99E;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect x="40" y="60" width="120" height="80" rx="8" fill="url(#matGrad)" />
+            <circle cx="60" cy="70" r="4" fill="#7A9189" opacity="0.4"/>
+            <circle cx="100" cy="70" r="4" fill="#7A9189" opacity="0.4"/>
+            <circle cx="140" cy="70" r="4" fill="#7A9189" opacity="0.4"/>
+            <path d="M 45 100 Q 60 95 75 100" stroke="#7A9189" stroke-width="1.5" fill="none" opacity="0.3"/>
+            <path d="M 45 120 Q 60 115 75 120" stroke="#7A9189" stroke-width="1.5" fill="none" opacity="0.3"/>
+            <path d="M 125 100 Q 140 95 155 100" stroke="#7A9189" stroke-width="1.5" fill="none" opacity="0.3"/>
+            <path d="M 125 120 Q 140 115 155 120" stroke="#7A9189" stroke-width="1.5" fill="none" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="product-content">
+          <h3 class="product-name">Pilates Mat</h3>
+          <p class="product-desc">A thick, cushioned mat designed for floor-based Pilates and core work. Non-slip, joint-friendly, and studio-grade quality.</p>
+          <a href="#" class="product-link">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumbnail">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="dumbGrad" cx="40%" cy="40%">
+                <stop offset="0%" style="stop-color:#A8BDB3;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#7A9189;stop-opacity:1" />
+              </radialGradient>
+            </defs>
+            <!-- Left dumbbell -->
+            <rect x="30" y="60" width="18" height="80" rx="4" fill="url(#dumbGrad)" />
+            <circle cx="39" cy="65" r="3" fill="#7A9189" opacity="0.3"/>
+            <circle cx="39" cy="135" r="3" fill="#7A9189" opacity="0.3"/>
+            <!-- Center bar -->
+            <rect x="50" y="92" width="100" height="16" rx="8" fill="#93A99E" />
+            <!-- Right dumbbell -->
+            <rect x="152" y="60" width="18" height="80" rx="4" fill="url(#dumbGrad)" />
+            <circle cx="161" cy="65" r="3" fill="#7A9189" opacity="0.3"/>
+            <circle cx="161" cy="135" r="3" fill="#7A9189" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="product-content">
+          <h3 class="product-name">Dumbbells</h3>
+          <p class="product-desc">Vinyl-coated dumbbells for controlled strength training. The right weight to build stability without strain.</p>
+          <a href="#" class="product-link">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumbnail">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="ankleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#A8BDB3;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#93A99E;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Weight cuff -->
+            <ellipse cx="100" cy="100" rx="50" ry="60" fill="url(#ankleGrad)" />
+            <!-- Strap -->
+            <rect x="45" y="70" width="110" height="12" rx="6" fill="#7A9189" opacity="0.4"/>
+            <!-- Weight pockets -->
+            <circle cx="80" cy="90" r="8" fill="#E0E0E0" opacity="0.6"/>
+            <circle cx="120" cy="90" r="8" fill="#E0E0E0" opacity="0.6"/>
+            <circle cx="100" cy="120" r="8" fill="#E0E0E0" opacity="0.6"/>
+            <!-- Velcro texture -->
+            <line x1="75" y1="110" x2="85" y2="110" stroke="#7A9189" stroke-width="0.5" opacity="0.3"/>
+            <line x1="115" y1="110" x2="125" y2="110" stroke="#7A9189" stroke-width="0.5" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="product-content">
+          <h3 class="product-name">Ankle Weights</h3>
+          <p class="product-desc">Adjustable ankle weights to add gentle resistance to Pilates and lower-body movements. Comfortable and secure.</p>
+          <a href="#" class="product-link">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumbnail">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="ringGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#A8BDB3;stop-opacity:1" />
+                <stop offset="70%" style="stop-color:#93A99E;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#7A9189;stop-opacity:1" />
+              </radialGradient>
+            </defs>
+            <!-- Ring -->
+            <circle cx="100" cy="100" r="55" fill="none" stroke="url(#ringGrad)" stroke-width="14" stroke-linecap="round" />
+            <!-- Grip pads -->
+            <rect x="75" y="50" width="20" height="12" rx="3" fill="#7A9189" opacity="0.6"/>
+            <rect x="105" y="50" width="20" height="12" rx="3" fill="#7A9189" opacity="0.6"/>
+            <!-- Texture lines on ring -->
+            <path d="M 100 48 Q 125 60 140 90" stroke="#7A9189" stroke-width="1" fill="none" opacity="0.2"/>
+            <path d="M 100 152 Q 125 140 140 110" stroke="#7A9189" stroke-width="1" fill="none" opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="product-content">
+          <h3 class="product-name">Pilates Ring</h3>
+          <p class="product-desc">A flexible resistance ring for targeted inner-thigh, arm, and core engagement. Adds precision to your Pilates practice.</p>
+          <a href="#" class="product-link">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumbnail">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="ballGrad" cx="35%" cy="35%">
+                <stop offset="0%" style="stop-color:#A8BDB3;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#7A9189;stop-opacity:1" />
+              </radialGradient>
+            </defs>
+            <!-- Main ball -->
+            <circle cx="100" cy="100" r="50" fill="url(#ballGrad)" />
+            <!-- Highlight -->
+            <ellipse cx="80" cy="75" rx="15" ry="18" fill="white" opacity="0.2"/>
+            <!-- Seam lines -->
+            <path d="M 100 50 Q 115 75 120 100 Q 115 125 100 150" stroke="#7A9189" stroke-width="1.5" fill="none" opacity="0.3"/>
+            <path d="M 100 50 Q 85 75 80 100 Q 85 125 100 150" stroke="#7A9189" stroke-width="1.5" fill="none" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="product-content">
+          <h3 class="product-name">Pilates Ball</h3>
+          <p class="product-desc">A small inflatable exercise ball for abdominal work, balance training, and deep core activation. Lightweight and portable.</p>
+          <a href="#" class="product-link">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumbnail">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="band1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#93A99E;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#93A99E;stop-opacity:1" />
+              </linearGradient>
+              <linearGradient id="band2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#A8BDB3;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#A8BDB3;stop-opacity:1" />
+              </linearGradient>
+              <linearGradient id="band3" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#7A9189;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#7A9189;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Band 1 (top) -->
+            <ellipse cx="100" cy="70" rx="60" ry="18" fill="url(#band1)" opacity="0.9"/>
+            <!-- Band 2 (middle) -->
+            <ellipse cx="100" cy="100" rx="60" ry="18" fill="url(#band2)" opacity="0.9"/>
+            <!-- Band 3 (bottom) -->
+            <ellipse cx="100" cy="130" rx="60" ry="18" fill="url(#band3)" opacity="0.9"/>
+            <!-- Texture marks -->
+            <line x1="50" y1="70" x2="150" y2="70" stroke="#E0E0E0" stroke-width="0.5" opacity="0.3"/>
+            <line x1="50" y1="100" x2="150" y2="100" stroke="#E0E0E0" stroke-width="0.5" opacity="0.3"/>
+            <line x1="50" y1="130" x2="150" y2="130" stroke="#E0E0E0" stroke-width="0.5" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="product-content">
+          <h3 class="product-name">Resistance Bands</h3>
+          <p class="product-desc">Fabric resistance bands for glute activation, hip work, and low-impact strength building. Multiple resistance levels included.</p>
+          <a href="#" class="product-link">View on Amazon →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA SECTION ==================== -->
+<section class="equipment-cta">
+  <div class="equipment-cta-inner">
+    <h2>Ready to begin?</h2>
+    <p>Get your equipment sorted, and start your 3-Day Core Trial — on us.</p>
+    <a href="javascript:void(0)" class="btn-primary" onclick="openModal()">Start My 3-Day Trial →</a>
+  </div>
+</section>
+
+<!-- ==================== SECTION I: FOOTER ==================== -->
+<footer>
+  <div class="flogo"><img src="images/the-core-logo.png" alt="The Core"></div>
+  <p class="ftag">Gentle strength, from within.</p>
+  <div class="flinks">
+    <a href="index.html">Home</a><a href="programs.html">Programs</a><a href="equipment.html">Equipment</a><a href="our-story.html">Founder's Story</a>
+  </div>
+  <div class="newsletter">
+    <p>Subscribe to our newsletter</p>
+    <div class="nl-form">
+      <input type="email" placeholder="Enter your email">
+      <button type="button">Subscribe</button>
+    </div>
+  </div>
+  <hr>
+  <p class="fcopy">&copy; 2026 The Core. All rights reserved.</p>
+</footer>
+
+<!-- ==================== MODAL ==================== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h3 style="font-family:var(--heading-font);font-size:26px;color:var(--forest);text-align:center;margin-bottom:8px;">Register for The Core Program</h3>
+    <p style="font-size:14px;color:var(--text-secondary);text-align:center;margin-bottom:28px;">No payment required. Just your commitment.</p>
+    <div class="form-group">
+      <label>Full Name <span class="required">*</span></label>
+      <input type="text" class="form-input" placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label>WhatsApp Number <span class="required">*</span></label>
+      <input type="tel" class="form-input" placeholder="+91 00000 00000">
+    </div>
+    <div class="form-group">
+      <label>Email <span class="required">*</span></label>
+      <input type="email" class="form-input" placeholder="your@email.com">
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:8px;">+ Additional questions in the full form</p>
+    <button class="btn-submit" style="margin-top:20px;">Begin My 3-Day Trial →</button>
+  </div>
+</div>
+
+<script>
+function openModal() { document.getElementById('modal').classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeModal() { document.getElementById('modal').classList.remove('active'); document.body.style.overflow = ''; }
+document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>

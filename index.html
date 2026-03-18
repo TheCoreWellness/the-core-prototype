@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Core — Come Back to Your Body</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:#2D3B2D;background:#fff;line-height:1.7;font-weight:400;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}img{max-width:100%;display:block}button{cursor:pointer;border:none;font-family:inherit}
+
+/* ===== LIGHT & AIRY COLOUR SCHEME ===== */
+:root{
+  --sage:#93A99E;
+  --sage-light:#A8BDB3;
+  --sage-dark:#7A9189;
+  --mist:#EDF3F0;
+  --bg:#FFFFFF;
+  --bg-alt:#FAFAF8;
+  --bg-section:#F5F5F3;
+  --text:#2D3B2D;
+  --text-secondary:#5A5A5A;
+  --text-muted:#888888;
+  --border:#E0E0E0;
+  --border-light:#EBEBEB;
+  --max-width:1200px;
+  --heading:'Bodoni Moda',serif;
+  --accent:'Cormorant Garamond',serif;
+  --body:'DM Sans',sans-serif;
+}
+
+/* ===== TYPOGRAPHY — no italic overuse, use weight/case/size ===== */
+h1,h2,h3,h4{font-family:var(--heading);font-weight:400;line-height:1.1;color:var(--text)}
+.label{font-family:var(--body);font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;color:var(--sage);margin-bottom:16px}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-size:15px;font-weight:500;padding:15px 38px;border-radius:999px;transition:all .3s ease}
+.btn-fill{background:var(--sage);color:#fff}.btn-fill:hover{background:var(--sage-dark);transform:scale(1.02)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45)}.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.75)}
+.btn-dark-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}.btn-dark-ghost:hover{border-color:var(--sage);color:var(--sage)}
+
+/* ===== NAVBAR ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border-light)}
+nav .logo img{height:30px}
+nav .links{display:flex;align-items:center;gap:32px}
+nav .links a{font-size:14px;font-weight:500;color:var(--text);transition:color .2s}
+nav .links a:hover,nav .links a.on{color:var(--sage)}
+nav .links a.on::after{content:'';display:block;width:100%;height:1.5px;background:var(--sage);margin-top:3px;position:absolute;bottom:-4px;left:0}
+nav .links a{position:relative}
+nav .cta{background:var(--sage);color:#fff;font-size:13px;font-weight:500;padding:10px 28px;border-radius:999px;transition:background .3s}
+nav .cta:hover{background:var(--sage-dark)}
+
+/* ===== HERO ===== */
+.hero{position:relative;width:100%;height:100vh;min-height:720px;display:flex;align-items:flex-end;overflow:hidden;background:#1a1a1a}
+.hero-bg{position:absolute;inset:0;background-image:url('images/hero-main.jpeg');background-color:#2D3B2D;background-size:cover;background-position:center}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.55) 0%,rgba(0,0,0,.3) 45%,rgba(0,0,0,.08) 100%)}
+.hero-inner{position:relative;z-index:2;width:100%;max-width:var(--max-width);margin:0 auto;padding:0 72px 72px;display:flex;justify-content:space-between;align-items:flex-end;gap:48px}
+.hero-left{max-width:680px}
+.hero-left .hero-tag{font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:#fff;margin-bottom:20px;opacity:.85}
+.hero-left h1{font-size:68px;font-weight:400;color:#fff;line-height:1.06;margin-bottom:28px}
+.hero-btns{display:flex;gap:14px;align-items:center}
+.hero-right{max-width:300px;text-align:right;padding-bottom:6px}
+.hero-right p{font-family:var(--body);font-size:16px;font-weight:400;color:#fff;line-height:1.6;margin-bottom:10px;opacity:.85}
+.hero-right .stat{font-size:11px;font-weight:500;color:#fff;letter-spacing:.06em;text-transform:uppercase;opacity:.55}
+
+/* ===== PROGRAMS ===== */
+.programs{padding:120px 48px;background:var(--bg)}
+.programs-in{max-width:var(--max-width);margin:0 auto;text-align:center}
+.programs h2{font-size:46px;margin-bottom:12px}
+.programs .sub{font-size:17px;color:var(--text-secondary);margin-bottom:60px;max-width:500px;margin-left:auto;margin-right:auto}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:960px;margin:0 auto}
+.pcard{background:var(--bg);border:1px solid var(--border-light);border-radius:16px;overflow:hidden;text-align:left;transition:all .3s}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.06);border-color:var(--sage)}
+.pcard-img{width:100%;height:240px;background-size:cover;background-position:center}
+.pcard-body{padding:28px 28px 32px}
+.pcard h3{font-size:28px;margin-bottom:6px}
+.pcard .psub{font-size:13px;color:var(--text);font-weight:500;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.pcard .pdesc{font-size:14px;color:var(--text-secondary);line-height:1.65;margin-bottom:20px}
+.pcard .plink{font-size:14px;font-weight:500;color:var(--sage);display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+.pcard:hover .plink{gap:10px}
+
+/* ===== INSTRUCTOR ===== */
+.instructor{padding:120px 48px;background:var(--bg-section)}
+.instructor-in{max-width:var(--max-width);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.vid{width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;position:relative;background-size:cover;background-position:center}
+.play{width:68px;height:68px;background:rgba(255,255,255,.92);border-radius:50%;display:flex;align-items:center;justify-content:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:transform .3s;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.12)}
+.play:hover{transform:translate(-50%,-50%) scale(1.08)}
+.play::after{content:'';width:0;height:0;border-left:18px solid var(--text);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:3px}
+.instructor-info h2{font-size:52px;margin-bottom:6px}
+.instructor-info .title{font-size:14px;color:var(--sage);font-weight:500;margin-bottom:20px;text-transform:uppercase;letter-spacing:.06em}
+.instructor-info .bio{font-size:15px;color:var(--text-secondary);line-height:1.75}
+.instructor-info .bio p{margin-bottom:14px}
+.creds{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px}
+.cred{background:var(--mist);color:var(--text);font-size:12px;font-weight:500;padding:7px 14px;border-radius:999px}
+
+/* ===== METHOD (oversized numbers on image backgrounds) ===== */
+.method{padding:120px 48px;background:var(--bg)}
+.method-in{max-width:var(--max-width);margin:0 auto;text-align:center}
+.method h2{font-size:88px;letter-spacing:.1em;margin-bottom:10px}
+.method .msub{font-size:17px;color:var(--text-secondary);margin-bottom:64px}
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1080px;margin:0 auto}
+.mcard{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/4;display:flex;flex-direction:column;justify-content:flex-end;padding:32px 28px;text-align:left;background-size:cover;background-position:center;transition:transform .3s}
+.mcard:hover{transform:translateY(-4px)}
+.mcard::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,rgba(0,0,0,.15) 50%,rgba(0,0,0,.05) 100%)}
+.mcard *{position:relative;z-index:2}
+.mnum{font-family:var(--heading);font-size:120px;font-weight:400;color:rgba(255,255,255,.2);line-height:.85;position:absolute;top:24px;left:28px;z-index:2}
+.mlabel{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.14em;color:#fff;margin-bottom:10px}
+.mdesc{font-size:14px;color:rgba(255,255,255,.82);line-height:1.55}
+.mtagline{margin-top:48px;font-size:17px;color:var(--text-muted);letter-spacing:.02em}
+
+/* ===== TESTIMONIALS ===== */
+.testimonials{padding:120px 48px;background:var(--bg-alt)}
+.testimonials-in{max-width:var(--max-width);margin:0 auto;text-align:center}
+.testimonials h2{font-size:44px;margin-bottom:52px}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tcard{background:var(--bg);border:1px solid var(--border-light);border-radius:14px;padding:32px 24px;text-align:left}
+.tstars{color:var(--sage);font-size:14px;letter-spacing:2px;margin-bottom:14px}
+.tquote{font-family:var(--accent);font-size:16px;font-weight:400;color:var(--text);line-height:1.6;margin-bottom:20px}
+.tauthor{display:flex;align-items:center;gap:10px}
+.tavatar{width:36px;height:36px;border-radius:50%;background:var(--mist);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--sage)}
+.tname{font-size:13px;font-weight:500;color:var(--text)}
+.tdetail{font-size:11px;color:var(--text-muted)}
+
+/* ===== EQUIPMENT TEASER ===== */
+.equip{padding:100px 48px;background:var(--bg)}
+.equip-in{max-width:var(--max-width);margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center}
+.ethumbs{display:flex;gap:14px}
+.ethumb{width:110px;height:110px;background:var(--bg-alt);border:1px solid var(--border-light);border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ethumb svg{width:64px;height:64px}
+.etext h2{font-size:36px;margin-bottom:14px}
+.etext p{font-size:15px;color:var(--text-secondary);max-width:500px;margin-bottom:24px;line-height:1.7}
+
+/* ===== CTA ===== */
+.cta{padding:140px 48px;background:var(--mist);text-align:center}
+.cta-in{max-width:680px;margin:0 auto}
+.cta h2{font-size:46px;margin-bottom:18px}
+.cta .cbody{font-size:16px;color:var(--text-secondary);line-height:1.75;margin-bottom:20px}
+.cta .cpull{font-family:var(--accent);font-size:22px;font-weight:400;color:var(--sage);line-height:1.5;margin-bottom:36px}
+.cta-img{width:240px;height:300px;border-radius:14px;margin:0 auto 36px;background-size:cover;background-position:center}
+
+/* ===== FOOTER ===== */
+footer{background:var(--text);padding:60px 48px 44px;text-align:center}
+footer .flogo img{height:26px;filter:brightness(0) invert(1);margin:0 auto 10px}
+footer .ftag{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:24px}
+footer .flinks{display:flex;justify-content:center;gap:22px;margin-bottom:28px}
+footer .flinks a{font-size:12px;color:rgba(255,255,255,.5);transition:color .2s}
+footer .flinks a:hover{color:#fff}
+footer hr{width:100%;max-width:700px;margin:0 auto 28px;border:none;border-top:1px solid rgba(255,255,255,.12)}
+footer .fcopy{font-size:11px;color:rgba(255,255,255,.4)}
+footer .newsletter{margin-bottom:32px}
+footer .newsletter p{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:12px}
+footer .nl-form{display:flex;gap:0;max-width:400px;margin:0 auto}
+footer .nl-form input{flex:1;padding:11px 16px;border:1px solid rgba(255,255,255,.2);border-right:none;border-radius:999px 0 0 999px;background:rgba(255,255,255,.08);color:#fff;font-family:var(--body);font-size:13px;outline:none}
+footer .nl-form input::placeholder{color:rgba(255,255,255,.35)}
+footer .nl-form input:focus{border-color:var(--sage);background:rgba(255,255,255,.12)}
+footer .nl-form button{padding:11px 24px;background:var(--sage);color:#fff;font-family:var(--body);font-size:12px;font-weight:500;border-radius:0 999px 999px 0;border:1px solid var(--sage);transition:background .3s;text-transform:uppercase;letter-spacing:.06em}
+footer .nl-form button:hover{background:var(--sage-dark)}
+
+/* ===== MODAL ===== */
+.overlay{display:none;position:fixed;inset:0;background:rgba(45,59,45,.45);backdrop-filter:blur(6px);z-index:2000;align-items:center;justify-content:center}
+.overlay.on{display:flex}
+.modal{background:#fff;border-radius:18px;padding:36px 32px;max-width:500px;width:92%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15);position:relative;animation:mIn .3s ease}
+@keyframes mIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal .mx{position:absolute;top:14px;right:18px;font-size:22px;color:var(--text-muted);background:none;line-height:1}.mx:hover{color:var(--text)}
+.modal h3{font-family:var(--heading);font-size:24px;text-align:center;margin-bottom:6px}
+.modal .msub{font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:24px}
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:12px;font-weight:500;color:var(--text);margin-bottom:5px}
+.fg .req{color:#C0392B;margin-left:2px}
+.fi{width:100%;border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-family:var(--body);font-size:14px;color:var(--text);background:#fff;outline:none;transition:all .2s}
+.fi:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(147,169,158,.12)}
+.fi::placeholder{color:#bbb}
+.rg,.cg{display:flex;flex-direction:column;gap:8px}
+.ro,.co{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--text);cursor:pointer}
+.rc{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);background:#fff;flex-shrink:0}
+.cs{width:16px;height:16px;border-radius:3px;border:2px solid var(--border);background:#fff;flex-shrink:0}
+.fq{font-size:12px;font-weight:500;color:var(--text);margin-bottom:8px}
+.submit{width:100%;background:var(--sage);color:#fff;font-size:15px;font-weight:500;padding:14px;border-radius:999px;margin-top:24px;transition:background .3s}
+.submit:hover{background:var(--sage-dark)}
+.ff{text-align:center;font-size:11px;color:var(--text-muted);margin-top:10px}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="logo"><img src="images/the-core-logo.png" alt="The Core"></a>
+  <div class="links">
+    <a href="index.html" class="on">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="equipment.html">Equipment</a>
+    <a href="our-story.html">Founder's Story</a>
+    <a href="javascript:void(0)" class="cta" onclick="openM()">Start Here</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">STRENGTH · PILATES · BREATHWORK</div>
+      <h1>Come back to your body.</h1>
+      <div class="hero-btns">
+        <a href="javascript:void(0)" class="btn btn-fill" onclick="openM()">Start Your Free Trial</a>
+        <a href="programs.html" class="btn btn-ghost">Explore Programs</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <p>A safe place to rebuild deep core strength — with intention, not intensity.</p>
+      <span class="stat">Structured method · Mat-based · All levels</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs">
+  <div class="programs-in">
+    <div class="label">OUR PROGRAMS</div>
+    <h2>Choose your path.</h2>
+    <p class="sub">Two programs. One method. Start where you are.</p>
+    <div class="pgrid">
+      <a href="programs.html" class="pcard">
+        <div class="pcard-img" style="background-image:url('images/program-beginner.jpeg')"></div>
+        <div class="pcard-body">
+          <h3>Beginner</h3>
+          <p class="psub">I'm just starting (or restarting)</p>
+          <p class="pdesc">I want to rebuild my strength, feel good in my body again, and move at my own pace.</p>
+          <span class="plink">Explore Program →</span>
+        </div>
+      </a>
+      <a href="programs.html" class="pcard">
+        <div class="pcard-img" style="background-image:url('images/program-advanced.jpeg')"></div>
+        <div class="pcard-body">
+          <h3>Intermediate & Advanced</h3>
+          <p class="psub">I'm ready to push myself</p>
+          <p class="pdesc">I'm ready to level up my strength, activate my core deeply, and feel stronger in my body.</p>
+          <span class="plink">Explore Program →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="instructor">
+  <div class="instructor-in">
+    <div class="vid" style="background-image:url('images/issa-instructor.jpg')">
+      <div class="play"></div>
+    </div>
+    <div class="instructor-info">
+      <div class="label">MEET OUR MASTER INSTRUCTOR</div>
+      <h2>Issa</h2>
+      <p class="title">Master Instructor</p>
+      <div class="bio">
+        <p>With over a decade of experience in Pilates, functional strength training, and breath-led movement, Issa brings a rare depth of knowledge to every session.</p>
+        <p>Her teaching philosophy centres on precision over intensity — building deep core strength through intentional, controlled movement that your body can sustain.</p>
+      </div>
+      <div class="creds">
+        <span class="cred">Certified Pilates Instructor</span>
+        <span class="cred">Functional Strength</span>
+        <span class="cred">Breath Work</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="method">
+  <div class="method-in">
+    <div class="label">THE METHOD</div>
+    <h2>3 · 2 · 1</h2>
+    <p class="msub">A structure your body can trust.</p>
+    <div class="mgrid">
+      <div class="mcard" style="background-image:url('images/method-strength.jpeg')">
+        <div class="mnum">3</div>
+        <div class="mlabel">DAYS — STRENGTH</div>
+        <p class="mdesc">Rebuild deep stability with controlled, intentional movements.</p>
+      </div>
+      <div class="mcard" style="background-image:url('images/method-pilates.jpeg')">
+        <div class="mnum">2</div>
+        <div class="mlabel">DAYS — PRECISION PILATES</div>
+        <p class="mdesc">Restore alignment and control through mat-based Pilates.</p>
+      </div>
+      <div class="mcard" style="background-image:url('images/method-breath.jpeg')">
+        <div class="mnum">1</div>
+        <div class="mlabel">DAY — BREATH & RESET</div>
+        <p class="mdesc">Activate your core properly and calm your nervous system.</p>
+      </div>
+    </div>
+    <p class="mtagline">Simple. Intentional. Sustainable.</p>
+    <div class="mbottom"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-in">
+    <div class="label">WHAT THEY SAY</div>
+    <h2>Real women. Real change.</h2>
+    <div class="tgrid">
+      <div class="tcard">
+        <div class="tstars">★ ★ ★ ★ ★</div>
+        <p class="tquote">"After two pregnancies, I felt lost in my own body. The Core gave me a way back — gently, without pressure. I feel steady again."</p>
+        <div class="tauthor"><div class="tavatar">A</div><div><div class="tname">Ananya S.</div><div class="tdetail">Beginner Program</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tstars">★ ★ ★ ★ ★</div>
+        <p class="tquote">"Nothing addressed the deep weakness I felt. The 3·2·1 method finally made sense — structured, gentle, effective."</p>
+        <div class="tauthor"><div class="tavatar">P</div><div><div class="tname">Priya M.</div><div class="tdetail">Intermediate Program</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tstars">★ ★ ★ ★ ★</div>
+        <p class="tquote">"My posture has changed completely. My back pain is gone. I actually look forward to my sessions — they feel like a reset."</p>
+        <div class="tauthor"><div class="tavatar">S</div><div><div class="tname">Sneha R.</div><div class="tdetail">Beginner Program</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tstars">★ ★ ★ ★ ★</div>
+        <p class="tquote">"I didn't want aggressive fitness. I wanted something that respected where I was. The Core met me there and helped me grow."</p>
+        <div class="tauthor"><div class="tavatar">M</div><div><div class="tname">Meera K.</div><div class="tdetail">Beginner Program</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tstars">★ ★ ★ ★ ★</div>
+        <p class="tquote">"Issa is incredible. Every cue, every correction feels personal. I've never had a fitness experience this intentional."</p>
+        <div class="tauthor"><div class="tavatar">R</div><div><div class="tname">Rhea D.</div><div class="tdetail">Intermediate Program</div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tstars">★ ★ ★ ★ ★</div>
+        <p class="tquote">"Three weeks in and my core feels genuinely different. Not just stronger — connected. Like it's actually switched on."</p>
+        <div class="tauthor"><div class="tavatar">D</div><div><div class="tname">Divya T.</div><div class="tdetail">Beginner Program</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPMENT TEASER -->
+<section class="equip">
+  <div class="equip-in">
+    <div class="ethumbs">
+      <div class="ethumb">
+        <svg viewBox="0 0 80 80" fill="none"><rect x="10" y="30" width="60" height="6" rx="3" fill="#93A99E" opacity=".5"/><rect x="8" y="38" width="64" height="4" rx="2" fill="#93A99E" opacity=".25"/><circle cx="14" cy="33" r="2.5" fill="#93A99E" opacity=".35"/><circle cx="66" cy="33" r="2.5" fill="#93A99E" opacity=".35"/><text x="40" y="58" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#888">Mat</text></svg>
+      </div>
+      <div class="ethumb">
+        <svg viewBox="0 0 80 80" fill="none"><rect x="26" y="22" width="6" height="36" rx="3" fill="#ccc"/><rect x="48" y="22" width="6" height="36" rx="3" fill="#ccc"/><circle cx="29" cy="22" r="8" fill="#93A99E" opacity=".55"/><circle cx="51" cy="22" r="8" fill="#93A99E" opacity=".55"/><circle cx="29" cy="58" r="8" fill="#93A99E" opacity=".55"/><circle cx="51" cy="58" r="8" fill="#93A99E" opacity=".55"/><text x="40" y="76" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#888">Weights</text></svg>
+      </div>
+      <div class="ethumb">
+        <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="36" r="22" stroke="#93A99E" stroke-width="4" fill="none" opacity=".5"/><rect x="34" y="12" width="12" height="6" rx="3" fill="#ccc"/><rect x="34" y="54" width="12" height="6" rx="3" fill="#ccc"/><text x="40" y="74" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#888">Ring</text></svg>
+      </div>
+    </div>
+    <div class="etext">
+      <div class="label">GEAR UP</div>
+      <h2>The right equipment makes the practice feel right.</h2>
+      <p>We've hand-picked the essentials — from mats and weights to Pilates rings and bands — so you can focus on what matters: your movement.</p>
+      <a href="equipment.html" class="btn btn-fill">View Equipment →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-in">
+    <div class="label">STEP INTO THE JOURNEY</div>
+    <h2>Your 3-Day Core Trial starts now.</h2>
+    <p class="cbody">This is not a teaser workout. It's a real experience of breath-led activation, deep core engagement, controlled strength, and the feeling of being supported from within.</p>
+    <p class="cpull">Three days to feel the difference.</p>
+    <div class="cta-img" style="background-image:url('images/cta-section.jpeg')"></div>
+    <a href="javascript:void(0)" class="btn btn-fill" onclick="openM()" style="padding:16px 52px;font-size:16px">Begin My 3-Day Trial →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo"><img src="images/the-core-logo.png" alt="The Core"></div>
+  <p class="ftag">Gentle strength, from within.</p>
+  <div class="flinks">
+    <a href="index.html">Home</a><a href="programs.html">Programs</a><a href="equipment.html">Equipment</a><a href="our-story.html">Founder's Story</a>
+  </div>
+  <div class="newsletter">
+    <p>Subscribe to our newsletter</p>
+    <div class="nl-form">
+      <input type="email" placeholder="Enter your email">
+      <button type="button">Subscribe</button>
+    </div>
+  </div>
+  <hr>
+  <p class="fcopy">&copy; 2026 The Core. All rights reserved.</p>
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="m">
+  <div class="modal">
+    <button class="mx" onclick="closeM()">&times;</button>
+    <h3>Register for The Core Program</h3>
+    <p class="msub">No payment required. Just your commitment.</p>
+    <div class="fg"><label>Full Name <span class="req">*</span></label><input type="text" class="fi" placeholder="Your full name"></div>
+    <div class="fg"><label>WhatsApp Number <span class="req">*</span></label><input type="tel" class="fi" placeholder="+91 00000 00000"></div>
+    <div class="fg"><label>Email <span class="req">*</span></label><input type="email" class="fi" placeholder="your@email.com"></div>
+    <div class="fg"><div class="fq">Which age group do you fall into?</div><div class="rg"><label class="ro"><span class="rc"></span>25 – 30</label><label class="ro"><span class="rc"></span>31 – 35</label><label class="ro"><span class="rc"></span>36 – 40</label><label class="ro"><span class="rc"></span>41 – 49</label><label class="ro"><span class="rc"></span>50+</label></div></div>
+    <div class="fg"><div class="fq">Are you postpartum?</div><div class="rg"><label class="ro"><span class="rc"></span>Yes, under 1 year</label><label class="ro"><span class="rc"></span>Yes, 1–3 years</label><label class="ro"><span class="rc"></span>No</label></div></div>
+    <div class="fg"><div class="fq">What best describes how you feel about your body right now?</div><div class="cg"><label class="co"><span class="cs"></span>I feel disconnected from my body</label><label class="co"><span class="cs"></span>My core feels weak or unsupported</label><label class="co"><span class="cs"></span>My posture doesn't feel right</label><label class="co"><span class="cs"></span>I've tried workouts, but nothing has worked consistently</label><label class="co"><span class="cs"></span>I want a calmer, more structured way to rebuild strength</label></div></div>
+    <div class="fg"><div class="fq">Where are you in your journey right now?</div><div class="rg"><label class="ro"><span class="rc"></span>I'm just getting back into movement</label><label class="ro"><span class="rc"></span>I work out occasionally</label><label class="ro"><span class="rc"></span>I'm consistent but feel something is missing</label><label class="ro"><span class="rc"></span>I feel strong but want deeper core work</label></div></div>
+    <div class="fg"><label>What are you hoping to feel in the next 30 days?</label><textarea class="fi" rows="3" placeholder="Stronger? Supported? More confident? Be honest."></textarea></div>
+    <div class="fg"><div class="fq">How many days a week can you realistically commit?</div><div class="rg"><label class="ro"><span class="rc"></span>2–3 days</label><label class="ro"><span class="rc"></span>3–4 days</label><label class="ro"><span class="rc"></span>5–6 days</label></div></div>
+    <button class="submit">Begin My 3-Day Trial →</button>
+    <p class="ff">No payment required. Just your commitment.</p>
+  </div>
+</div>
+
+<script>
+function openM(){document.getElementById('m').classList.add('on');document.body.style.overflow='hidden'}
+function closeM(){document.getElementById('m').classList.remove('on');document.body.style.overflow=''}
+document.getElementById('m').addEventListener('click',function(e){if(e.target===this)closeM()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeM()});
+</script>
+</body>
+</html>
